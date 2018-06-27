@@ -1,7 +1,8 @@
 import pymel.core as pm
 
 def MakeControl(constrainTarget = False):
-    for target in pm.ls(sl= True):
+    selection = pm.ls(sl= True)
+    for target in selection:
         #Selected object is the target
         pm.select(clear = True)
         
@@ -24,4 +25,14 @@ def MakeControl(constrainTarget = False):
         if constrainTarget:
             pm.parentConstraint(cirTrans, target)
 
-MakeControl(True)
+def MakeBonesFromSelection(suffix = "_joint"):
+        selection = pm.ls(sl= True)
+        for target in selection:
+            pm.select(clear = True)
+            jointName = str(target) + suffix
+            print jointName
+            jnt = pm.joint(name = jointName)
+            con = pm.parentConstraint(target, jnt)
+            pm.delete(con)
+#MakeControl(True)
+#MakeBonesFromSelection()
