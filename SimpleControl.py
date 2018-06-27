@@ -20,6 +20,7 @@ def MakeControl(constrainTarget = False):
         pm.parent(cirTrans, grp)
         con = pm.parentConstraint(target, cirTrans)
         pm.delete(con)
+        #cmds.delete(cmds.parentConstraint(B, A))
         
         #Constrain target
         if constrainTarget:
