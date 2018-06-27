@@ -30,7 +30,6 @@ def MakeBonesFromSelection(suffix = "_joint"):
         for target in selection:
             pm.select(clear = True)
             jointName = str(target) + suffix
-            print jointName
             jnt = pm.joint(name = jointName)
             con = pm.parentConstraint(target, jnt)
             pm.delete(con)
