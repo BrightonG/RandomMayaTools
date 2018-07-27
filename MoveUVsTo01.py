@@ -1,9 +1,6 @@
 import pymel.core as pm
 import math
 
-#UVCount = pm.polyEvaluate(uv = True)
-#UVCount = len(shape.vtx)
-
 selection = pm.ls(sl=True)
 for item in selection:    
     shape = pm.PyNode(item.node())
@@ -15,15 +12,11 @@ for item in selection:
         xRegion = x + xRegion
         yRegion = y + yRegion
     if(yRegion < 0):
-        print "negative"
-        yTemp = yRegion * 1
-        print yTemp
+        yTemp = yRegion
     else:
         yTemp = yRegion
     if(xRegion < 0):
-        print "negative"
-        xTemp = xRegion * 1
-        print xTemp
+        xTemp = xRegion
     else:
         xTemp = xRegion
     frac, xOffset = math.modf(xTemp / UVCount)
