@@ -13,9 +13,9 @@ for item in selection:
         x, y = shape.getUV(i)
         xRegion = x + xRegion
         yRegion = y + yRegion
-    #Handle Negative UDIM sections
     frac, xOffset = math.modf(xRegion / UVCount)
     frac, yOffset = math.modf(yRegion / UVCount) 
+    #Handle Negative UDIM sections
     if(yRegion < 0):
         yOffset = yOffset -1
     if(xRegion < 0):
