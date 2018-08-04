@@ -30,15 +30,41 @@ XYLen = pm.polyEvaluate(mesh, uvs = setXY, uvc = True)
 for i in xrange(XYLen):
     mesh.setUV(i, 0, 0, uvSet = setXY)
 
+#derp = pm.polyListComponentConversion(tuv=True)
+#print derp
+#newsel = pm.ls(sl = True)
+#for v in newsel:
+#    for uv in pm.polyListComponentConversion(v, tuv=True):
+#        print uv
+    
 # Set UVs to world spaec coordinates of the locator
 x,y,z = pivot.translate.get()
+pm.polyUVSet(mesh, cuv = True, uvSet = setXY )
+mesh.setUV(70, .5, .6, uvSet = setXY)
+for item in selection:
+    print item
+#TODO: Selection is not iterating: 'pCubeShape1.vtx[12:27]'
 for vertex in selection:
+    print vertex
     UVs = pm.polyListComponentConversion(vertex, tuv=True)
-    for UV in UVs:
-        a = UV.split('[')[1][:-1]
-        idList = list(a.split(':'))
-        for id in idList:
-            mesh.setUV(id, x, y, uvSet = setXY)
-            mesh.setUV(id, z, 1, uvSet = setZ)
-    
-    
+    for uv in UVs:
+        a = uv.split('[')[1][:-1]
+        if ":" in a:
+            ids = a.split(':')
+            for id in ids:
+                for i in xrange(XYLen):
+                    if i == int(id):
+                        mesh.setUV(i, x, y, uvSet = setXY)
+                        print 'Match'
+                    else:
+                        mesh.setUV(i, 0, 0, uvSet = setXY)
+        else:
+            mesh.setUV(a, x, y, uvSet = setXY)
+            print "elsed"
+
+
+pm.polyUVSet(mesh, cuv = True, uvSet = setZ )
+for vertex in selection:
+    UVCount = len(mesh.getUVs(setZ)[0])
+    for UV in xrange(UVCount):
+        mesh.setUV(UV, z, 1, uvSet = setZ)
